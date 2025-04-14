@@ -12,6 +12,7 @@ from sklearn.metrics import (
     recall_score,
 )
 import matplotlib.pyplot as plt
+import pickle
 
 # load cleaned data
 df = pd.read_csv("../data/cleaned_employee_data.csv")
@@ -58,3 +59,19 @@ plt.xlabel("False Positive Rate")
 plt.ylabel("True Positive Rate")
 plt.legend(loc="lower right")
 plt.show()
+
+# Save the trained model using pickle
+model_filename = "../model/xgb_model_v1.pkl"
+with open(model_filename, "wb") as file:
+    pickle.dump(model, file)
+
+print(f"Model saved as {model_filename}")
+
+
+# Load the model from the file
+model_filename = "xgb_model_v1.pkl"
+with open(model_filename, "rb") as file:
+    loaded_model = pickle.load(file)
+
+# Now you can use loaded_model to make predictions
+# Example: predictions = loaded_model.predict(X_test)
